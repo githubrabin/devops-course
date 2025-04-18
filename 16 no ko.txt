@@ -1,0 +1,40 @@
+/*Write a C program to open a new file and read roll-no,name, address and 
+phone number of students until the user says "no" after reading the data, 
+write it to the file then display content of the file. */
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+struct student{
+	int roll;
+	char name[50];
+	char address[50];
+	int phn;
+};
+int main(){
+	struct student s;
+	char addmore[10]="yes";
+	FILE *fp;
+	fp=fopen("std.txt","w");
+	if(fp==NULL)
+	{
+		exit(1);
+	}
+	while(strcmp(addmore,"no")!=0){
+		printf("Enter Students Roll No, Name, Address and Phone No Respectively:-");
+		scanf("%d %s %s %d",&s.roll,s.name,s.address,&s.phn);
+		fprintf(fp,"%d %s %s %d \n",s.roll,s.name,s.address,s.phn);
+		
+		printf("Do you want to continue? yes/no:- ");
+		scanf("%s",addmore);
+	}
+	fclose(fp);
+	
+	fp=fopen("std.txt","r");
+	printf("Roll No  Name  Address   Phone No \n");
+	while(fscanf(fp,"%d %s %s %d",&s.roll,s.name,s.address,&s.phn)!=EOF){
+	
+		printf("%d %s %s %d \n",s.roll,s.name,s.address,s.phn);
+	}
+	fclose(fp);
+	return 0;
+}
